@@ -1,8 +1,10 @@
 import pytest
+from pythoncode.calculator import Calculator
 @pytest.fixture(scope='module')
-def status():
+def cal():
+    calc = Calculator()
     print("计算开始")
-    yield
+    yield calc
     print("计算结束")
 
 @pytest.fixture(scope='module')

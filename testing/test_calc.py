@@ -1,6 +1,5 @@
 import pytest
 import yaml
-from pythoncode.calculator import Calculator
 
 def get_Add_Datas():
     with open("./datas/calc.yml") as f:
@@ -30,39 +29,40 @@ def get_Div_Datas():
     div_datas = datas['div']['datas']
     div_ids = datas['div']['ids']
     return [div_datas,div_ids]
-# def get_steps():
-#     with open("./steps/steps.yml") as f:
-#         datas = yaml.safe_load(f)
+
 class TestCalc():
-    def setup_class(self):
-        self.calc = Calculator()
+    # def setup_class(self):
+    #     self.calc = Calculator()
 
     # def teardown_class(self):
     #     print("计算结束")
-
+    @pytest.mark.run(order=1)
     @pytest.mark.parametrize('a,b,expect',get_Add_Datas()[0],ids=get_Add_Datas()[1])
-    def test_add(self,status,a,b,expect):
-        result = self.calc.add(a,b)
+    def test_add(self,cal,a,b,expect):
+        result = cal.add(a,b)
         assert round(result,2)==expect
 
-    @pytest.mark.parametrize('a,b,expect',get_Sub_Datas()[0],ids=get_Sub_Datas()[1])
-    def test_sub(self,status,a,b,expect):
-        result = self.calc.sub(a, b)
-        assert round(result,2) == expect
-
-
-    @pytest.mark.parametrize('a,b,expect',get_Div_Datas()[0],ids=get_Div_Datas()[1])
-    def test_div(self,status,a,b,expect):
+    @pytest.mark.run(order=4)
+    @pytest.mark.parametrize('a,b,expect', get_Div_Datas()[0], ids=get_Div_Datas()[1])
+    def test_div(self, cal, a, b, expect):
         if b == 0:
             with pytest.raises(ZeroDivisionError):
-                result = self.calc.div(a, b)
+                result = cal.div(a, b)
                 print(result)
         else:
-            result = self.calc.div(a, b)
-            assert round(result,2) == expect
+            result = cal.div(a, b)
+            assert round(result, 2) == expect
+
+    @pytest.mark.run(order=2)
+    @pytest.mark.parametrize('a,b,expect',get_Sub_Datas()[0],ids=get_Sub_Datas()[1])
+    def test_sub(self,cal,a,b,expect):
+        result = cal.sub(a, b)
+        assert round(result,2) == expect
+
+    @pytest.mark.run(order=3)
     @pytest.mark.parametrize('a,b,expect',get_Mul_Datas()[0],ids=get_Mul_Datas()[1])
-    def test_mul(self,status,a,b,expect):
-        result = self.calc.mul(a,b)
+    def test_mul(self,cal,a,b,expect):
+        result = cal.mul(a,b)
         assert round(result,2) == expect
 
 if __name__ == '__main__':
