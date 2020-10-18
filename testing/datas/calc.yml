@@ -1,0 +1,62 @@
+add:
+  datas:
+    - [1,1,2]
+    - [100,100,200]
+    - [0,2,8]
+    - [ 0.1,0.1,0.2]
+    - [ 0.1,0.2,0.3]
+    - [ 0,0.02,0.02]
+  ids:
+    - 'int_success'
+    - 'int_success'
+    - 'int_fail'
+    - 'float_success'
+    - 'float_success'
+    - 'float_success'
+sub:
+  datas:
+    - [1,1,0]
+    - [200,100,100]
+    - [0,2,2]
+    - [0.1,0.1,0]
+    - [100.1,0.1,100 ]
+    - [0,0.5,-0.5 ]
+  ids:
+    - 'int_success'
+    - 'int_success'
+    - 'int_fail'
+    - 'float_success'
+    - 'float_success'
+    - 'float_success'
+div:
+  datas:
+    - [1,1,1]
+    - [200,100,2]
+    - [0,0,0]
+    - [-2,-0.1,-2.0]
+    - [0.5,10,0.05]
+    - [2,3,0.67]
+
+  ids:
+    - 'int_success'
+    - 'int_success'
+    - 'int_success'
+    - 'float_fail'
+    - 'float_success'
+    - 'float_success'
+mul:
+  datas:
+    - [1,1,1]
+    - [200,100,20000]
+    - [-2,2,4]
+    - [-2,0,-0]
+    - [0.5,10,5]
+    - [2,0.3,0.6]
+
+  ids:
+    - 'int_success'
+    - 'int_success'
+    - 'int_fail'
+    - 'int_success'
+    - 'float_success'
+    - 'float_success'
