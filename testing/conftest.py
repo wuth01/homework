@@ -5,6 +5,7 @@ from typing import List
 import pytest
 
 from pythoncode.calculator import Calculator
+
 @pytest.fixture(scope='module')
 def cal():
     calc = Calculator()
@@ -18,7 +19,9 @@ def login():
     print ("登录操作")
     yield username
     print ("登出操作")
-
+"""
+收集用例个性化制定用例
+"""
 def pytest_collection_modifyitems(
     session: "Session", config: "Config", items: List["Item"]
 ) -> None:
@@ -30,11 +33,26 @@ def pytest_collection_modifyitems(
     :param List[pytest.Item] items: List of item objects.
     """
     print(type(items))
+    """
+    倒序执行用例
+    """
     items.reverse()
+    """
+    用例结果显示汉子
+    """
     for item in items:
+
         item.name = item.name.encode('utf-8').decode('unicode-escape')
         item._nodeid = item.nodeid.encode('utf8').decode('unicode-escape')
-        if 'add' in item.name:
-            item.add_marker(pytest.mark.add)
-        elif 'div' in item.name:
-            item.add_marker(pytest.mark.div)
+
+    """
+    用例加标签
+    """
+    if 'add' in item.name:
+        item.add_marker(pytest.mark.add)
+    elif 'div' in item.name:
+        item.add_marker(pytest.mark.div)
+    elif 'mul' in item.name:
+        item.add_marker(pytest.mark.mul)
+    elif 'sub' in item.name:
+        item.add_marker(pytest.mark.sub)
