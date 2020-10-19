@@ -1,5 +1,8 @@
+#!/usr/bin/python
+# -*- coding: UTF-8 -*-
 import pytest
 import yaml
+import allure
 
 def get_Add_Datas():
     with open("./datas/calc.yml") as f:

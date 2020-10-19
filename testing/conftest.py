@@ -1,3 +1,5 @@
+#!/usr/bin/python
+# -*- coding: UTF-8 -*-
 import pytest
 from pythoncode.calculator import Calculator
 @pytest.fixture(scope='module')

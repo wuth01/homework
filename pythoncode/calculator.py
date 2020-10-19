@@ -1,4 +1,5 @@
-import pytest
+#!/usr/bin/python
+# -*- coding: UTF-8 -*-
 class Calculator():
 
     def add(self,a,b):
