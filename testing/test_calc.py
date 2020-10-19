@@ -74,5 +74,6 @@ class TestCalc():
         result = cal.mul(a,b)
         assert round(result,2) == expect
 
+
 if __name__ == '__main__':
     pytest.main(['test_calc.py','-v'])

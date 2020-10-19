@@ -7,7 +7,7 @@ add:
     - [ 0.1,0.2,0.3]
     - [ 0,0.02,0.02]
   ids:
-    - 'int_success'
+    - '整数'
     - 'int_success'
     - 'int_fail'
     - 'float_success'
