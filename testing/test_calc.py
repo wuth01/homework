@@ -5,33 +5,39 @@ import yaml
 import allure
 
 def get_Add_Datas():
-    with open("./datas/calc.yml") as f:
+    with open("./datas/calc.yml",encoding='utf-8') as f:
         datas = yaml.safe_load(f)
     add_datas = datas['add']['datas']
     add_ids = datas['add']['ids']
+    print(add_datas)
+    print(add_ids)
 
     return [add_datas,add_ids]
 
 def get_Sub_Datas():
-    with open("./datas/calc.yml") as f:
+    with open("./datas/calc.yml",encoding='utf-8') as f:
         datas = yaml.safe_load(f)
     sub_datas = datas['sub']['datas']
     sub_ids = datas['sub']['ids']
     return [sub_datas,sub_ids]
 
 def get_Mul_Datas():
-    with open("./datas/calc.yml") as f:
+    with open("./datas/calc.yml",encoding='utf-8') as f:
         datas = yaml.safe_load(f)
     mul_datas = datas['mul']['datas']
     mul_ids = datas['mul']['ids']
     return [mul_datas,mul_ids]
 
 def get_Div_Datas():
-    with open("./datas/calc.yml") as f:
+    with open("./datas/calc.yml",encoding='utf-8') as f:
         datas = yaml.safe_load(f)
     div_datas = datas['div']['datas']
     div_ids = datas['div']['ids']
     return [div_datas,div_ids]
+
+# def test_yaml():
+#     f=yaml.safe_load(open("./datas/calc.yml",encoding='utf-8'))
+#     print(f['add'])
 
 class TestCalc():
     # def setup_class(self):
