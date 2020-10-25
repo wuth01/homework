@@ -14,3 +14,9 @@ class Calculator():
     def mul(self,a,b):
         print(a*b)
         return a*b
+    def add1(self,a,b):
+        return a+b
+    def add2(self,a,b):
+        return a+b
+    def add3(sefl,a,b):
+        return a+b

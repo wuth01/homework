@@ -32,19 +32,18 @@ pytest --last-failed 只运行上次失败的用例
 pytest --failed-first 先运行上次失败的用例再运行成功的用例
 """
 import pytest
-class TestDemo:
-    def test_demo(self):
-        print ("demo")
-def func(x):
-    return x+1
-def test_answer():
-    assert func(4)==5
-def test_answer1():
-    assert func(3)==5
+import yaml
+
+# class TestDemo:
+#     def test_demo(self):
+#         print ("demo")
+# def func(x):
+#     return x+1
+# def test_answer():
+#     assert func(4)==5
+# def test_answer1():
+#     assert func(3)==5
+
+
 if __name__ == '__main__':
     pytest.main(['test_1.py::TestDemo','-v'])
-
-def func(x):
-    return x+1
-def test_answer():
-    assert func(4)==5
