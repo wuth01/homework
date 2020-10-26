@@ -9,13 +9,13 @@ from web.workweixin.public.base_page import BasePage
 获取导入通讯录按钮
 """
 def contacts(self):
-    btn_import = self.driver.execute_script('return document.getElementsByClassName("index_service_cnt_itemWrap")[1]')
+    btn_import = self.driver.execute_script('return document.getElementsByClassName("index_service_cnt_item_title")[1]')
     return btn_import
 """
 获取添加联系人按钮
 """
 def add_member(self):
-    btn_add =  self.find(By.CSS_SELECTOR, ".js_has_member>div:nth-child(1)>a:nth-child(2)")
+    btn_add = self.find(By.CSS_SELECTOR, ".js_has_member>div:nth-child(1)>a:nth-child(2)")
     return btn_add
 
 class MainPage(BasePage):
@@ -49,9 +49,8 @@ class MainPage(BasePage):
 
         WebDriverWait(self.driver, 10).until(wait_for_next)
 
-        return AddMemberPage(self.driver)
+        return AddMemberPage()
 
     def goto_TestImport(self):
-        sleep(2)
         contacts(self).click()
         return TestImport()

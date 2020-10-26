@@ -25,4 +25,4 @@ class TestWX:
         phonenum = "13500000008"
         addmember = self.login.logincookies().goto_addmember()
         text = addmember.add_same_phonenum(username, account, phonenum)
-        assert '该手机号已被“aaaaaab”占有' in text
+        assert '该手机已被“aaaaaab”占有' in text
