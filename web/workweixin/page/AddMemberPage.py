@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 from selenium.webdriver.common.by import By
 from web.workweixin.public.base_page import BasePage
-
 class AddMemberPage(BasePage):
 
     def add_member(self, username, account, phonenum):
@@ -24,6 +23,7 @@ class AddMemberPage(BasePage):
         text = self.find(By.XPATH,'//*[@class="member_edit_item member_edit_item_Account"]//*[@class="ww_inputWithTips_tips"]').text
         print(text)
         return text
+
     def add_same_phonenum(self,username, account, phonenum):
         self.find(By.ID, "username").send_keys(username)
         self.find(By.ID, "memberAdd_acctid").send_keys(account)

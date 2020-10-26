@@ -1,6 +1,4 @@
 from web.workweixin.page.cookie_login import Cookielogin
-
-
 class TestWX:
     def setup(self):
         self.login = Cookielogin()

@@ -1,6 +1,5 @@
 from time import sleep
 from web.workweixin.public.base_page import BasePage
-
 """
 获取上传文件按钮
 """
@@ -13,9 +12,8 @@ def up_files(self):
 def get_filename(self):
     filename = self.driver.find_element_by_css_selector(".ww_fileImporter_fileContainer_fileNames").text
     return filename
-
 """
-提交按钮
+获取提交按钮
 """
 def submit(self):
     btn_submit = self.driver.find_element_by_xpath('//*[@class="qui_btn ww_btn ww_btn_Large ww_btn_Blue ww_fileImporter_submit"]')

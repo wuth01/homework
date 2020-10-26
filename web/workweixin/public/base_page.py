@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
 # 基类 ：最基本的方法， driver 实例化， find()等
 from selenium import webdriver
 from selenium.common.exceptions import WebDriverException
@@ -9,7 +8,6 @@ from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
-
 
 class BasePage:
     # driver: WebDriver

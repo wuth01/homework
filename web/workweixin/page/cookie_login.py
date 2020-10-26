@@ -1,10 +1,6 @@
 import shelve
-
-from selenium import webdriver
-
 from web.workweixin.page.main_page import MainPage
 from web.workweixin.public.base_page import BasePage
-
 
 class Cookielogin(BasePage):
     def logincookies(self):
