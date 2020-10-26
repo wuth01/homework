@@ -2,7 +2,7 @@ import shelve
 from time import sleep
 import allure
 import pytest
-from workweixin.base import Base
+from web.workweixin.base import Base
 
 def add_cookies(self):
     self.driver.get("https://work.weixin.qq.com/wework_admin/frame#index")
@@ -41,7 +41,7 @@ def submit(self):
 
 @allure.feature("导入联系人")
 class TestImport(Base):
-    @pytest.mark.skip
+
     @allure.story("获取cookie")
     def test_get_cookies(self):
         self.driver.get('https://work.weixin.qq.com/wework_admin/frame#index')
