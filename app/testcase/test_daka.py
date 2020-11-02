@@ -1,15 +1,18 @@
 import pytest
-from appium import webdriver
-from appium.webdriver.common.mobileby import MobileBy
-from app.page.main_page import mainPage
-
-
-
+from hamcrest import *
+from app.page.app import App
 class Testdaka():
+
     def setup(self):
-        self.main=mainPage()
+        self.app = App()
+        self.main = self.app.start().goto_main()
+
+    def teardown(self):
+        self.app.stop()
+
     def test_daka(self):
-        assert self.main.goto_gongzuotai().daka()
+        value= self.main.goto_gongzuotai().outside_daka()
+        assert_that(True,equal_to(value))
 
 
 # if __name__=='__main__':
