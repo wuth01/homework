@@ -17,6 +17,9 @@ class TestContact():
             add_contact(name, gender, phonenum).get_toast()
         assert '添加成功' == result
 
+    """
+    删除联系人
+    """
     def test_deletemember(self):
         name = "hogwarts__004"
         assert  "没有联系人" == self.main.goto_address().\
