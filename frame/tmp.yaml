@@ -1,0 +1,9 @@
+test_a:
+  - hello.a: []
+  - print: ["abcde"]
+  - re.search: [".*","xxxx"]
+  - save: [tmp]
+  - print: [$(tmp)]
+
+test_b:
+  - hello.b: []
