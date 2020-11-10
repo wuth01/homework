@@ -9,8 +9,9 @@ class gongZuoTai(BasePage):
         self.driver.update_settings({"waitForIdleTimeout": 0})
         locator=(MobileBy.XPATH,'//*[@text="外出打卡"]')
         ele= self.wait_for_click(locator)
-        ele.click()
-        self.find(MobileBy.XPATH, '//*[contains(@text, "次外出")]').click()
+        # ele.click()
+        # self.find(MobileBy.XPATH, '//*[contains(@text, "次外出")]').click()
+        self.parse_yaml("../steps/gongzuotai.yaml", 'outside_daka')
         # sleep(2)
         # assert "外出打卡成功" in self.driver.page_source
         # 显式等待

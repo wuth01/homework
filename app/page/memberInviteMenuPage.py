@@ -5,12 +5,14 @@
 """
 from appium.webdriver.common.mobileby import MobileBy
 # from app.page.contactadd_page import ContactAddPage
+from selenium.webdriver.common.by import By
+
 from app.public.base_page import BasePage
 
 
 class MemberInviteMenuPage(BasePage):
     def add_member_menual(self):
-        self.find(MobileBy.XPATH, "//*[@text='手动输入添加']").click()
+        self.find(By.XPATH, "//*[@text='手动输入添加']").click()
 
         from app.page.contactadd_page import ContactAddPage
         return ContactAddPage(self.driver)

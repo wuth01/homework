@@ -11,7 +11,7 @@ class Testdaka():
         self.app.stop()
 
     def test_daka(self):
-        value= self.main.goto_gongzuotai().outside_daka()
+        value = self.main.goto_gongzuotai().outside_daka()
         assert_that(True,equal_to(value))
 
 
