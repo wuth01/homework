@@ -5,10 +5,10 @@ from app.public.base_page import BasePage
 
 class gongZuoTai(BasePage):
     def outside_daka(self):
-        self.find_by_scroll('打卡').click()
-        self.driver.update_settings({"waitForIdleTimeout": 0})
-        locator=(MobileBy.XPATH,'//*[@text="外出打卡"]')
-        ele= self.wait_for_click(locator)
+        # self.find_by_scroll('打卡').click()
+        # self.driver.update_settings({"waitForIdleTimeout": 0})
+        # locator=(MobileBy.XPATH,'//*[@text="外出打卡"]')
+        # ele= self.wait_for_click(locator)
         # ele.click()
         # self.find(MobileBy.XPATH, '//*[contains(@text, "次外出")]').click()
         self.parse_yaml("../steps/gongzuotai.yaml", 'outside_daka')

@@ -1,4 +1,10 @@
 outside_daka:
+  - text: '打卡'
+    action: scroll
+  - action: update_settings
+  - by: xpath
+    locator: '//*[@text="外出打卡"]'
+    action: wait_for_click
   - by: xpath
     locator: '//*[@text="外出打卡"]'
     action: click

@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 # 基类 ：最基本的方法， driver 实例化， find()等 常用的最基本的方法
 import logging
-
 import yaml
 from appium.webdriver.common.mobileby import MobileBy
 from appium.webdriver.webdriver import WebDriver
@@ -90,12 +89,23 @@ class BasePage():
             data = yaml.load(f)
         self.parse(data[func_name])
     """
-    测试步骤文件解析
+    测试步骤文件解析                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
     """
     @handle_black
     def parse(self, steps):
         for step in steps:
+            logging.info(step)
             if 'click' == step['action']:
                 locator = (step['by'], step['locator'])
                 self.wait_for_click(locator).click()
-
+            if 'send' == step['action']:
+                locator = (step['by'], step['locator'])
+                self.find(*locator).send_keys(step['content'])
+            if 'scroll' == step['action']:
+                text = step['text']
+                self.find_by_scroll(text).click()
+            if 'update_settings' == step['action']:
+                self.driver.update_settings({"waitForIdleTimeout": 0})
+            if 'wait_for_click' == step['action']:
+                locator = (step['by'], step['locator'])
+                self.wait_for_click(locator)
