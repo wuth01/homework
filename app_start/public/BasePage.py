@@ -75,10 +75,13 @@ class BasePage():
         os.system("adb pull /sdcard/test/test.mp4 .")
     def ffmpeg(self):
         # command = "ffmpeg -i test.mp4 test.gif"
-        command = "ffmpeg -i test.mp4 -r 10 frames_%03d.jpg"
+        command = "ffmpeg -i test.mp4 -r 60 frames_%03d.jpg"
         os.system(command)
 
     def del_jpf(self):
         command = "del *.jpg"
         os.system(command)
-        os.system("del *.mp4")
+
+    def del_mp4(self):
+        command = 'del *.mp4'
+        os.system(command)

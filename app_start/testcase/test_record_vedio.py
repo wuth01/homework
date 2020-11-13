@@ -18,3 +18,4 @@ class Test_starttime(BasePage):
 
     def test_del(self):
         self.del_jpf()
+        self.del_mp4()
