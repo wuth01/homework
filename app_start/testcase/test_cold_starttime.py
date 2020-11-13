@@ -1,5 +1,8 @@
 from app_start.public.BasePage import BasePage
 class Test_starttime(BasePage):
+    """
+    cmd中先执行 adb logcat | findstr -i displayed
+    """
     def setup(self):
         globals()['result'] = self.get_Process_Activity()
         self.clear(*globals()['result'])

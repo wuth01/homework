@@ -25,7 +25,7 @@ def pytest_collection_modifyitems(
 
 @pytest.fixture(scope='session',autouse=False)
 def record_vedio():
-    command = "scrcpy --record tmp.mp4"
+    command = "scrcpy --record test.mp4"
     p = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr= subprocess.STDOUT)
     yield
     os.kill(p.pid, signal.CTRL_C_EVENT)
