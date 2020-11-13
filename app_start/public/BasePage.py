@@ -1,6 +1,7 @@
 import logging
 import os
 import subprocess
+from time import sleep
 
 import pytest
 
@@ -64,3 +65,14 @@ class BasePage():
 		logging.info(activity)
 		command = f"adb shell am start -S -W {package}/{activity}"
 		subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+
+	def screenrecord(self):
+		command = "adb shell screenrecord --bugreport --time-limit 20 /sdcard/test/test.mp4 &"
+		subprocess.Popen(command,shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+		sleep(20)
+		os.system("adb pull /sdcard/test/test.mp4 .")
+		sleep(10)
+	def ffmpeg(self):
+		# command = "ffmpeg -i test.mp4 test.gif"
+		command = "ffmpeg -i test.mp4 -r 10 frames_%03d.jpg"
+		os.system(command)
