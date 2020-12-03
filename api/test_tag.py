@@ -75,13 +75,16 @@ class TestTag:
         )
         assert "name exceed max utf8 words 30" in r.json()['errmsg']
 
-    def test_del_list_all(self):
-        tag_id = self.tag.get_tag_id()
+    @pytest.mark.parametrize("group_name", [
+        '测试']
+    )
+    def test_del_list_all(self,group_name):
+        tag_id = self.tag.get_tag_id(group_name)
         r = self.tag.delete(tag_id)
         r = self.tag.list()
         r = r.json()['tag_group']
         for i in r:
-            if i['group_name'] == '测试':
+            if i['group_name'] == group_name:
                 assert False
             else:
                 assert True
