@@ -13,18 +13,39 @@ from jsonpath import jsonpath
 from api.tag import Tag
 
 class TestTag:
-
     def setup_class(self):
         self.tag = Tag()
 
 
-    @pytest.mark.parametrize("tag_id, tag_name", [
-        ['etZr3CEAAAGT3VFfvEHKrfzcGLLodcxg', 'tag1_new_'],
-        ['etZr3CEAAAGT3VFfvEHKrfzcGLLodcxg', 'tag1——中文'],
-        ['etZr3CEAAAGT3VFfvEHKrfzcGLLodcxg', 'tag1[中文]'],
+    @pytest.mark.parametrize("group_name, name,order", [
+        ['测试','test1', 1],
+        ['测试','test2', 2]
     ])
-    def test_tag_list(self, tag_id, tag_name):
+    def test_add_list(self,group_name, name, order):
+        group_name=group_name
+        tag = [{"name": name, "order": order}]
+        r = self.tag.add(group_name=group_name,tag=tag)
+        tag_name = r[0]
+        assert tag_name[0] == name
+
+    @pytest.mark.parametrize("group_name, name,order", [
+        ['测试', 'ddddddddddddddddddddddddddddddd', 1]
+    ])
+    def test_add_list_fail(self, group_name, name, order):
+        group_name = group_name
+        tag = [{"name": name, "order": order}]
+        r = self.tag.add_fail(group_name=group_name, tag=tag)
+        assert 'tag.name exceed max utf8 words 30' in r.json()['errmsg']
+
+    @pytest.mark.parametrize("tag_name", [
+        'tag1_new_',
+        'tag1——中文',
+        'tag1[中文]']
+    )
+    def test_tag_update_list(self, tag_name):
         tag_name = tag_name + str(datetime.datetime.now().strftime("%Y%m%d-%H%M%S"))
+        tag_id = self.tag.get_tag_id()[0]
+        print(tag_id)
         r = self.tag.list()
         r = self.tag.update(
             id=tag_id,
@@ -39,40 +60,22 @@ class TestTag:
 
         assert jsonpath(r.json(), f"$..[?(@.name=='{tag_name}')]")[0]['name'] == tag_name
         # assert tags != []
-    @pytest.mark.parametrize("tag_id, tag_name", [
-        ['etZr3CEAAAGT3VFfvEHKrfzcGLLodcxg', 'DFDASFSDFDSAFADSFDSAF']
-    ])
-    def test_tag_list_fail(self, tag_id, tag_name):
+
+    @pytest.mark.parametrize("tag_name", [
+        'DFDASFSDFDSAFADSFDSAF']
+    )
+    def test_tag_update_list_fail(self, tag_name):
         tag_name = tag_name + str(datetime.datetime.now().strftime("%Y%m%d-%H%M%S"))
+        tag_id = self.tag.get_tag_id()[0]
         r = self.tag.list()
         r = self.tag.update(
             id=tag_id,
             tag_name=tag_name
         )
-        print(r.json())
         assert "name exceed max utf8 words 30" in r.json()['errmsg']
 
-    @pytest.mark.parametrize("group_name, name,order", [
-        ['测试','test1', 1],
-        ['测试','test2', 2],
-    ])
-    def test_add_list(self,group_name, name, order):
-        group_name=group_name
-        tag = [{"name": name, "order": order}]
-        r = self.tag.add(group_name=group_name,tag=tag)
-        tag_name = r[0]
-        assert tag_name[0] == name
-
     def test_del_list(self):
-        r = self.tag.list()
-        r = r.json()['tag_group']
-        tag_id = []
-        for i in r:
-            if i['group_name'] == '测试':
-                tag = i['tag']
-                for i in tag:
-                    tag_id.append(i['id'])
-        print(tag_id)
+        tag_id = self.tag.get_tag_id()
         r = self.tag.delete(tag_id)
         r = self.tag.list()
         r = r.json()['tag_group']

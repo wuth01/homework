@@ -45,6 +45,16 @@ class Tag():
             tag_name.append(i['name'])
         return [tag_name,tag_id]
 
+    def add_fail(self,group_name,tag):
+        r = requests.post(
+            "https://qyapi.weixin.qq.com/cgi-bin/externalcontact/add_corp_tag",
+            params={"access_token": self.token},
+            json={
+                "group_name": group_name,
+                "tag": tag
+            }
+        )
+        return r
     def list(self):
         r = requests.post(
             'https://qyapi.weixin.qq.com/cgi-bin/externalcontact/get_corp_tag_list',
@@ -76,3 +86,16 @@ class Tag():
         )
         assert r.status_code == 200
         assert r.json()['errcode'] == 0
+        assert r.json()['errmsg'] == 'ok'
+
+    def get_tag_id(self):
+        r = self.list()
+        r = r.json()['tag_group']
+        tag_id = []
+        for i in r:
+            if i['group_name'] == '测试':
+                tag = i['tag']
+                for i in tag:
+                    tag_id.append(i['id'])
+        print(tag_id)
+        return tag_id
