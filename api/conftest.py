@@ -7,7 +7,6 @@ def status():
     print("开始测试")
     yield
     print("结束测试")
-
 def pytest_collection_modifyitems(
     session: "Session", config: "Config", items: List["Item"]
 ) -> None:
