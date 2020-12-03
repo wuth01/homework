@@ -19,7 +19,8 @@ class TestTag:
 
     @pytest.mark.parametrize("group_name, name,order", [
         ['测试','test1', 1],
-        ['测试','test2', 2]
+        ['测试','test2', 2],
+        ['客户等级', '一级', 1]
     ])
     def test_add_list(self,group_name, name, order):
         group_name=group_name
@@ -37,14 +38,14 @@ class TestTag:
         r = self.tag.add_fail(group_name=group_name, tag=tag)
         assert 'tag.name exceed max utf8 words 30' in r.json()['errmsg']
 
-    @pytest.mark.parametrize("tag_name", [
-        'tag1_new_',
-        'tag1——中文',
-        'tag1[中文]']
+    @pytest.mark.parametrize("group_name,tag_name", [
+        ['测试','tag1_new_'],
+        ['客户等级','tag1——中文'],
+        ['测试','tag1[中文]']]
     )
-    def test_tag_update_list(self, tag_name):
+    def test_tag_update_list(self, group_name,tag_name):
         tag_name = tag_name + str(datetime.datetime.now().strftime("%Y%m%d-%H%M%S"))
-        tag_id = self.tag.get_tag_id()[0]
+        tag_id = self.tag.get_tag_id(group_name)[0]
         print(tag_id)
         r = self.tag.list()
         r = self.tag.update(
@@ -74,7 +75,7 @@ class TestTag:
         )
         assert "name exceed max utf8 words 30" in r.json()['errmsg']
 
-    def test_del_list(self):
+    def test_del_list_all(self):
         tag_id = self.tag.get_tag_id()
         r = self.tag.delete(tag_id)
         r = self.tag.list()

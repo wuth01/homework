@@ -12,7 +12,7 @@ class Tag():
 
     def test_get_token(self):
         corpid = 'ww9f9937b00575cb31'
-        corpsecret = 'zwP2nf2XpHJvBrCx_xIFdvxm_7IDi9tlLKVxWpVqF44'
+        corpsecret = 'zwP2nf2XpHJvBrCx_xIFdr1BkcdoXpQnmaKfPyL-JRs'
 
         r = requests.get(
             'https://qyapi.weixin.qq.com/cgi-bin/gettoken',
@@ -88,12 +88,12 @@ class Tag():
         assert r.json()['errcode'] == 0
         assert r.json()['errmsg'] == 'ok'
 
-    def get_tag_id(self):
+    def get_tag_id(self,group_name):
         r = self.list()
         r = r.json()['tag_group']
         tag_id = []
         for i in r:
-            if i['group_name'] == '测试':
+            if i['group_name'] == group_name:
                 tag = i['tag']
                 for i in tag:
                     tag_id.append(i['id'])
