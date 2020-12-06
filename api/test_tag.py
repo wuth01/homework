@@ -1,8 +1,6 @@
 import datetime
-import json
-
 import pytest
-import requests
+
 
 # done: 与底层具体的实现框架代码耦合严重，无法适应变化，比如公司切换了协议，比如使用pb dubbo
 # done: 代码冗余，需要封装
@@ -15,19 +13,23 @@ from api.tag import Tag
 class TestTag:
     def setup_class(self):
         self.tag = Tag()
-
-
-    @pytest.mark.parametrize("group_name, name,order", [
+    def teardown_class(self):
+        pass
+    def setup(self):
+        pass
+    def teardown(self):
+        pass
+    @pytest.mark.parametrize("group_name, tag_name,order", [
         ['测试','test1', 1],
         ['测试','test2', 2],
         ['客户等级', '1级', 1]
     ])
-    def test_add_list(self,group_name, name, order):
+    def test_add_list(self,group_name, tag_name, order):
         group_name=group_name
-        tag = [{"name": name, "order": order}]
+        tag = [{"name": tag_name, "order": order}]
         r = self.tag.add(group_name=group_name,tag=tag)
-        tag_name = r[0]
-        assert tag_name[0] == name
+        result = r
+        assert result == tag_name
 
     @pytest.mark.parametrize("group_name, name,order", [
         ['测试', 'ddddddddddddddddddddddddddddddd', 1]
@@ -38,15 +40,14 @@ class TestTag:
         r = self.tag.add_fail(group_name=group_name, tag=tag)
         assert 'tag.name exceed max utf8 words 30' in r.json()['errmsg']
 
-    @pytest.mark.parametrize("group_name,tag_name", [
-        ['测试','tag1_new_'],
-        ['客户等级','tag1——中文'],
-        ['测试','tag1[中文]']]
+    @pytest.mark.parametrize("group_name,tag_name,i", [
+        ['测试','tag1_new_',0],
+        ['客户等级','tag1——中文',0],
+        ['测试','tag1[中文]',1]]
     )
-    def test_tag_update_list(self, group_name,tag_name):
+    def test_tag_update_list(self, group_name,tag_name,i):
         tag_name = tag_name + str(datetime.datetime.now().strftime("%Y%m%d-%H%M%S"))
-        tag_id = self.tag.get_tag_id(group_name)[0]
-        print(tag_id)
+        tag_id = self.tag.get_tag_id(group_name)[i]#改第i个标签名字
         r = self.tag.list()
         r = self.tag.update(
             id=tag_id,
@@ -77,16 +78,18 @@ class TestTag:
         )
         assert "name exceed max utf8 words 30" in r.json()['errmsg']
 
-    @pytest.mark.parametrize("group_name", [
-        '测试','客户等级']
-    )
-    def test_del_list_all(self,group_name):
-        tag_id = self.tag.get_tag_id(group_name)
-        r = self.tag.delete(tag_id)
-        r = self.tag.list()
-        r = r.json()['tag_group']
-        for i in r:
-            if i['group_name'] == group_name:
-                assert False
-            else:
-                assert True
+    def test_del_tagid_all(self):
+        group_name = self.tag.get_group_name()
+        for i in group_name:
+            tag_id = self.tag.get_tag_id(i)
+            r = self.tag.delete_tag_id(tag_id)
+            r = self.tag.list()
+            r = r.json()['tag_group']
+            for i in r:
+                if i['group_name'] == group_name:
+                    assert False
+                else:
+                    assert True
+
+if __name__ == '__main__':
+    pytest.main(['test_tag.py','-v'])

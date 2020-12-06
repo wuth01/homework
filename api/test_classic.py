@@ -133,3 +133,5 @@ def test_delete_tag():
     )
     assert r.status_code == 200
     assert r.json()['errcode'] == 0
+
+
