@@ -22,7 +22,8 @@ class TestTag:
     @pytest.mark.parametrize("group_name, tag_name,order", [
         ['测试','test1', 1],
         ['测试','test2', 2],
-        ['客户等级', '1级', 1]
+        ['客户等级', '1级', 1],
+        ['客户等级', '2级', 2]
     ])
     def test_add_list(self,group_name, tag_name, order):
         group_name=group_name
@@ -43,8 +44,9 @@ class TestTag:
     @pytest.mark.parametrize("group_name,tag_name,i", [
         ['测试','tag1_new_',0],
         ['客户等级','tag1——中文',0],
-        ['测试','tag1[中文]',1]]
-    )
+        ['测试','tag1[中文]',1],
+        ['客户等级', 'tag2——abcDE d', 1]
+    ])
     def test_tag_update_list(self, group_name,tag_name,i):
         tag_name = tag_name + str(datetime.datetime.now().strftime("%Y%m%d-%H%M%S"))
         tag_id = self.tag.get_tag_id(group_name)[i]#改第i个标签名字
@@ -81,15 +83,10 @@ class TestTag:
     def test_del_tagid_all(self):
         group_name = self.tag.get_group_name()
         for i in group_name:
-            tag_id = self.tag.get_tag_id(i)
+            tag_id = self.tag.get_tag_id(group_name=i)
             r = self.tag.delete_tag_id(tag_id)
-            r = self.tag.list()
-            r = r.json()['tag_group']
-            for i in r:
-                if i['group_name'] == group_name:
-                    assert False
-                else:
-                    assert True
+            assert r['errcode'] == 0
+            assert r['errmsg'] == 'ok'
 
 if __name__ == '__main__':
     pytest.main(['test_tag.py','-v'])
